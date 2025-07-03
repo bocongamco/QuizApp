@@ -1,0 +1,67 @@
+﻿@page 
+@model QuizApp.Pages.Quizzes.CreateModel
+@{
+    ViewData["Title"] = "Create Quiz";
+}
+<h2> Create new Quiz </h2>
+
+<form method="post" >
+    <div class="form-group">
+        <label>Title</label>
+        <input asp-for = "Quiz.Title" class="form-control" placeholder="Enter quiz Title"/>
+        <span asp-validation-for="Quiz.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Time Limit (Minutes)</label>
+        <input asp-for="Quiz.TimeLimitInMinutes" class="form-control" placeholder="Enter Time Limit for the Quiz" />
+        <span asp-validation-for="Quiz.TimeLimitInMinutes" class="text-danger"></span>
+    </div>
+    </br>
+    <div id="questions-container">
+    </div>
+
+    <button type="button" class="btn btn-secondary mt-2" onclick="addQuestion()">Add Question</button>
+    <button type="submit" class="btn btn-primary">Create</button>
+
+    @section Scripts {
+        <script>
+            let questionIndex = 0;
+
+            function addQuestion() {
+                const container = document.getElementById('questions-container');
+
+                const questionHtml = `
+                    <div class="question-block border p-3 my-2">
+                        <label>Question:</label>
+                        <input name="Quiz.Questions[${questionIndex}].QuestionText" class="form-control mb-2" />
+
+                        <div id="answers-${questionIndex}" class="mb-2"></div>
+                        <button type="button" class="btn btn-sm btn-info" onclick="addAnswer(${questionIndex})">Add Answer</button>
+                    </div>
+                `;
+
+                container.insertAdjacentHTML('beforeend', questionHtml);
+                questionIndex++;
+            }
+
+            function addAnswer(qIndex) {
+                const answerContainer = document.getElementById(`answers-${qIndex}`);
+                const answerCount = answerContainer.childElementCount;
+
+                const answerHtml = `
+                    <div class="d-flex align-items-center mb-1">
+                        <input name="Quiz.Questions[${qIndex}].AnswerOptions[${answerCount}].AnswerText" class="form-control me-2" />
+                        <label class="me-1">Correct?</label>
+                        <input type="checkbox" name="Quiz.Questions[${qIndex}].AnswerOptions[${answerCount}].isCorrect" value="true" />
+                        <input type="hidden" name="Quiz.Questions[${qIndex}].AnswerOptions[${answerCount}].isCorrect" value="false" />
+                    </div>
+                `;
+
+                answerContainer.insertAdjacentHTML('beforeend', answerHtml);
+            }
+        </script>
+    }
+
+
+</form>
+

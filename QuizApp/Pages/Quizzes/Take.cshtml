@@ -1,0 +1,42 @@
+﻿@page "{id:guid?}"
+@model QuizApp.Pages.Quizzes.TakeModel
+@{
+    ViewData["Title"] = "Take Quiz";
+}
+<h2>@Model.Quiz.Title</h2>
+<p><strong>Time Limit:</strong> @Model.Quiz.TimeLimitInMinutes minutes</p>
+
+<form method="post">
+    @for (int i = 0; i < Model.Quiz.Questions.Count; i++)
+    {
+        var question = Model.Quiz.Questions[i];
+        var attemptQuestion = Model.Attempt.Questions[i];
+
+        <div class="mb-4">
+            <p><strong>Q@(i + 1):</strong> @question.QuestionText</p>
+
+            @foreach (var option in question.AnswerOptions)
+            {
+                <div class="form-check">
+                    <input type="radio"
+                           name="Attempt.Questions[@i].SelectedAnswerId"
+                           value="@option.Id"
+                           class="form-check-input"
+                           id="q@i-opt@option.Id" />
+
+                    <label class="form-check-label" for="q@i-opt@option.Id">
+                        @option.AnswerText
+                    </label>
+                </div>
+            }
+
+            <input type="hidden" name="Attempt.QuizId" value="@Model.Quiz.Id" />
+            <!-- Hidden field to preserve QuestionId -->
+            <input type="hidden"
+                   name="Attempt.Questions[@i].QuestionId"
+                   value="@question.Id" />
+        </div>
+    }
+
+    <button type="submit" class="btn btn-success">Submit Quiz</button>
+</form>

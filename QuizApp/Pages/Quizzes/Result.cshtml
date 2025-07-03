@@ -1,0 +1,10 @@
+﻿@page
+@model QuizApp.Pages.Quizzes.ResultModel
+@{
+    ViewData["Title"] = "Quiz Result";
+}
+<h2>Quiz Result</h2>
+
+<p>Your Score: <strong>@Model.Score</strong> out of <strong>@Model.TotalQuestions</strong></p>
+
+<a asp-page="Index" class="btn btn-primary">Back to Quiz List</a>
