@@ -1,0 +1,64 @@
+﻿@page "{id:guid}"
+@model QuizApp.Pages.Quizzes.EditModel
+@{
+    ViewData["Title"] = "Edit Quiz";
+}
+
+<h2>Edit Quiz</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label>Title</label>
+        <input asp-for="Quiz.Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Time Limit (minutes)</label>
+        <input asp-for="Quiz.TimeLimitInMinutes" class="form-control" />
+    </div>
+
+    @for (int i = 0; i < Model.Quiz.Questions.Count; i++)
+    {
+        var question = Model.Quiz.Questions[i];
+
+        //Loop through each question, get question text, QuestionID.
+        <div class="mt-4 border p-3">
+            <label>Question:</label>
+            <input class="form-control"
+                   name="Quiz.Questions[@i].QuestionText"
+                   value="@question.QuestionText" />
+
+            <input type="hidden"
+                   name="Quiz.Questions[@i].Id"
+                   value="@question.Id" />
+
+         
+            @{
+                int j = 0;
+            }
+            @foreach (var answer in question.AnswerOptions)
+            {
+                <div class="d-flex mt-2">
+                    <input type="text"
+                           class="form-control"
+                           name="Quiz.Questions[@i].AnswerOptions[@j].AnswerText"
+                           value="@answer.AnswerText" />
+
+                    <input type="checkbox"
+                           class="form-check-input ms-2"
+                           name="Quiz.Questions[@i].AnswerOptions[@j].IsCorrect"
+                           value="true"
+                    @(answer.isCorrect ? "checked" : "") />
+                    
+                    <input type="hidden"
+                           name="Quiz.Questions[@i].AnswerOptions[@j].Id"
+                           value="@answer.Id" />
+                </div>
+                j++;
+            }
+        </div>
+    }
+
+    <input type="hidden" asp-for="Quiz.Id" />
+
+    <button type="submit" class="btn btn-success mt-3">Save Changes</button>
+</form>

@@ -8,7 +8,7 @@ namespace QuizApp.Pages
   
         public IActionResult OnGet()
         {
-            return RedirectToPage("/Quizzes/Index");
+            return RedirectToPage("/Account/Login");
         }
     }
 }

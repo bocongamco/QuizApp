@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using QuizApp.Models;
@@ -6,6 +7,7 @@ using QuizApp.ViewModel;
 
 namespace QuizApp.Pages.Quizzes
 {
+    [Authorize]
     public class TakeModel : PageModel
     {
         private readonly IQuizService _quizService;

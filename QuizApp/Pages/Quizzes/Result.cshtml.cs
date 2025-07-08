@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace QuizApp.Pages.Quizzes
 {
+    [Authorize]
     public class ResultModel : PageModel
     {
+
         public int Score { get; set; }
         public int TotalQuestions { get; set; }
 

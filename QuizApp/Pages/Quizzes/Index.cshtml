@@ -18,9 +18,14 @@
                 <td>@quiz.Title</td>
                 <td>@quiz.TimeLimitInMinutes</td>
                 <td>
-                    <a asp-page="Edit" asp-route-id="@quiz.Id">Edit</a> |
-                    <a asp-page="Take" asp-route-id="@quiz.Id">Take</a> |
-                    <a asp-page="Delete" asp-route-id="@quiz.Id">Delete</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <text><a asp-page="Edit" asp-route-id="@quiz.Id">Edit</a> | </text>
+                        <text> <a asp-page="Delete" asp-route-id="@quiz.Id">Delete</a> | </text>
+                    }
+                  
+                    <a asp-page="Take" asp-route-id="@quiz.Id">Take</a> 
+                    
                 </td>
             </tr>
         }

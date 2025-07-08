@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using QuizApp.Data;
@@ -5,6 +6,7 @@ using QuizApp.Models;
 
 namespace QuizApp.Pages.Quizzes
 {
+    [Authorize(Roles ="Admin")]
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -34,11 +36,13 @@ namespace QuizApp.Pages.Quizzes
             foreach (var question in Quiz.Questions)
             {
                 question.Id = Guid.NewGuid();
+                //Assigned foreign key for quizId
                 question.QuizId = Quiz.Id;
 
                 foreach (var answer in question.AnswerOptions)
                 {
                     answer.Id = Guid.NewGuid();
+                    //Assigned foreign key for QuestionId
                     answer.QuestionId = question.Id;
                 }
             }
