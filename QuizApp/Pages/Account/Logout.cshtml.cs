@@ -10,6 +10,7 @@ namespace QuizApp.Pages.Account
        public async Task<IActionResult> OnPost()
         {
             await HttpContext.SignOutAsync("CookieAuth");
+            TempData["Message"] = "You have been logged out successfully.";
             return RedirectToPage("/Index");
         }
     }

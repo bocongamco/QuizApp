@@ -30,6 +30,18 @@
             </tr>
         }
     </tbody>
+
 </table>
 
 <a asp-page="Create" class="btn btn-primary">Create New Quiz</a>
+<br />
+<br />
+<br />
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        <text>@TempData["Message"]</text>
+    </div>
+    
+}

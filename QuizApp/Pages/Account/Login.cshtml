@@ -153,7 +153,15 @@
                 <label class="form-check-label" for="checkDefault">
                     Remember me
                 </label>
-             </div> 
+             </div>
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-info">@TempData["Message"]</div>
+            }
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div class="alert alert-danger">@error.ErrorMessage</div>
+            }
             <button class="btn btn-primary w-100 py-2" type="submit">
                 Sign in
             </button> 

@@ -21,7 +21,9 @@ namespace QuizApp.Pages.Account
                 var principal = new ClaimsPrincipal(identity);
 
                 await HttpContext.SignInAsync("CookieAuth", principal);
+                TempData["Message"] = "You have been Logged In successfully.";
                 return RedirectToPage("/Quizzes/Index");
+               
             }
             if (email == "student@student" && password == "123123")
             {
@@ -34,7 +36,12 @@ namespace QuizApp.Pages.Account
                 var principal = new ClaimsPrincipal(identity);
 
                 await HttpContext.SignInAsync("CookieAuth", principal);
+                TempData["Message"] = "You have been Logged In successfully.";
                 return RedirectToPage("/Quizzes/Index");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt. Please check your email and password.");
             }
             return Page();
         }
