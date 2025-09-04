@@ -15,7 +15,7 @@ builder.Services.AddScoped<IQuizService, QuizService>();
 builder.Services.AddAuthentication().AddCookie("CookieAuth", option =>
 {
     option.LoginPath = "/Account/Login";
-    option.AccessDeniedPath = "/Account/AccessDenied";
+    option.AccessDeniedPath = "/Error/403";
     option.Cookie.HttpOnly = true; // Ensures cookies are not accessible by Javascript, 
 
     //Ensure cookies are secure, and not be stolen from fraud link 
